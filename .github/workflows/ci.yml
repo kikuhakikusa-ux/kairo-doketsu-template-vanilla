@@ -1,0 +1,62 @@
+# =========================================================
+# 軽量CI（Vanilla 静的アプリ用・ビルド不要）
+#
+# このテンプレは npm/ビルドを使わないため、重いCI（tsc/eslint/build）は入れていません。
+# ここでは「最低限の健全性チェック」だけを行います:
+#   1. 必須ファイルがあるか
+#   2. index.html に DOCTYPE と <title> があるか
+#   3. index.html が参照するローカルの style.css / js が実在するか
+#
+# 失敗したら、push したコミットの横に赤い × が付きます（GitHub の Actions タブで詳細を確認）。
+# 将来 Prettier や HTML バリデーションを足したくなったら、下部のコメントを参照。
+# =========================================================
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  sanity-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 必須ファイルの存在チェック
+        run: |
+          missing=0
+          for f in index.html style.css; do
+            if [ ! -f "$f" ]; then echo "::error::必須ファイルがありません: $f"; missing=1; fi
+          done
+          [ "$missing" -eq 0 ] && echo "OK: 必須ファイルあり"
+
+      - name: index.html の基本チェック
+        run: |
+          grep -iq '<!doctype html>' index.html || { echo "::error::index.html に <!DOCTYPE html> がありません"; exit 1; }
+          grep -iq '<title>' index.html        || { echo "::error::index.html に <title> がありません"; exit 1; }
+          echo "OK: DOCTYPE と <title> あり"
+
+      - name: 参照ローカルファイルの実在チェック
+        run: |
+          # href/src のローカル参照（http で始まらないもの）を抜き出し、存在を確認する
+          refs=$(grep -oE '(href|src)="[^"]+"' index.html | sed -E 's/.*="([^"]+)".*/\1/' \
+                 | grep -vE '^(https?:|//|#|mailto:|data:)' || true)
+          fail=0
+          for r in $refs; do
+            path="${r#/}"            # 先頭の / を除去
+            path="${path%%\?*}"      # ?query を除去
+            path="${path%%\#*}"      # #hash を除去
+            [ -z "$path" ] && continue
+            if [ ! -e "$path" ]; then echo "::warning::参照先が見つかりません: $r"; fail=1; fi
+          done
+          [ "$fail" -eq 0 ] && echo "OK: ローカル参照は実在" || echo "（警告のみ。CDN等の外部URLはチェック対象外です）"
+
+# --- 将来の拡張メモ ---
+# HTMLを厳密に検証したくなったら、上のjobの後に次を足せます（Java不要・コンテナ実行）:
+#   - name: HTML validation
+#     uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+#     with:
+#       root: .
+# 整形を統一したくなったら Prettier（要 package.json）。アプリが大きくなってから検討。

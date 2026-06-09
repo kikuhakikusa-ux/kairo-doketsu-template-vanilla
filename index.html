@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2A7FFF" />
+  <!-- ▼▼ このアプリ用に書き換える ▼▼ -->
+  <title>アプリ名 ｜ カイロウドウケツ</title>
+  <meta name="description" content="このアプリの説明をここに書く（検索結果やSNSシェアに表示されます）。" />
+  <!-- ▲▲ ここまで ▲▲ -->
+
+  <link rel="icon" href="assets/Icon.png" />
+
+  <!-- ブランドフォント -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ ヘッダー（ブランドバー） ============ -->
+  <header class="app-header">
+    <a class="brand" href="https://www.kairo-doketsu.com/">
+      <img class="brand-logo" src="assets/Icon.png" alt="偕老同穴ロゴ" />
+      <span class="brand-text"><b>アプリ名</b><span>KAIROUDOUKETSU</span></span>
+    </a>
+  </header>
+
+  <!-- ============ メイン（ここにアプリを作る） ============ -->
+  <main class="app-main">
+    <section class="hello">
+      <h1>ここにアプリを<span class="hl">つくる</span></h1>
+      <p>この雛形はカイロウドウケツのアプリ用テンプレートです。<br />
+        <code>index.html</code> / <code>style.css</code> / <code>js/main.js</code> を書き換えて、あなたのアプリにしてください。</p>
+      <button id="demo-btn" class="btn btn-blue">タップしてみる</button>
+      <p id="demo-out" class="demo-out" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <!-- ============ フッター（アフィリエイト規制対応・全アプリ共通） ============ -->
+  <!-- ステマ規制(景表法)対応の明示文言。アフィリエイトリンクを置かないアプリでも、
+       置いた瞬間に対応漏れが出ないよう、テンプレ段階で入れてあります。消さないでください。 -->
+  <footer class="site-footer">
+    <p class="affiliate-disclosure">
+      本サイトはアフィリエイト広告を利用しています。リンク先での購入・サービス利用により、
+      当サイトが報酬を得る場合があります。紹介する商品・サービスは、私たちが実際に使用・体験したものです。
+    </p>
+    <nav class="footer-nav">
+      <a href="https://www.kairo-doketsu.com/privacy/">プライバシーポリシー</a>
+      <span aria-hidden="true">｜</span>
+      <a href="https://www.kairo-doketsu.com/terms/">利用規約</a>
+      <span aria-hidden="true">｜</span>
+      <a href="https://www.kairo-doketsu.com/">ポータル</a>
+    </nav>
+    <p class="copyright">© 2026 Kairoudouketsu</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

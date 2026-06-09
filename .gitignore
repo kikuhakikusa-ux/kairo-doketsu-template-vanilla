@@ -1,0 +1,17 @@
+# 秘密情報（絶対にコミットしない）
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# エディタ
+.vscode/
+.idea/
+
+# 念のため（ツールを足したとき用）
+node_modules/
+dist/
+*.log
