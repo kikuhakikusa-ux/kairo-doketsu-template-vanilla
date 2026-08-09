@@ -27,5 +27,18 @@
 - 外部ライブラリは CDN（`<script src>`）で読み込む
 - ホスティング: Cloudflare Pages（`<アプリ名>.kairo-doketsu.com`）
 
+## 公開したら必ずやること
+**アプリ一覧サイトへの登録**（忘れるとどこからも辿り着けない）。
+
+```bash
+cd C:\Work_VS-Code\KairoDoketsu\kairo-doketsu-apps
+node tools/add-app.mjs --slug <このリポジトリ名> --name "<表示名>" \
+  --genre <fun|useful|heal|other> --desc "<1行紹介>"
+git add -A && git commit -m "アプリ追加: <表示名>" && git push origin main
+```
+
+ポータルの「つくってきたもの」に**アプリのカードは足さない**（一覧へ集約する方針）。
+手順の詳細は `kairo-doketsu-portal/docs/INFRA-DEPLOYMENT.md` §5-3、README の「公開する」節も参照。
+
 ## 特記事項
 (空欄、後で追記)

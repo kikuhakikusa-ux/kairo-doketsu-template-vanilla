@@ -47,6 +47,30 @@ python -m http.server 8000
 
 > アプリのURLは `https://<アプリ名>.kairo-doketsu.com/`（サブドメイン方式）になります。
 
+### 5. ★ アプリ一覧に登録する（公開したら必ず）
+
+公開しただけでは、どこからも辿り着けません。
+**アプリ一覧サイト `apps.kairo-doketsu.com` に1件登録して、はじめて人の目に触れます。**
+
+```bash
+cd C:\Work_VS-Code\KairoDoketsu\kairo-doketsu-apps
+git pull origin main
+
+# ジャンル: fun(おもしろ系) / useful(使える系) / heal(癒し系) / other(その他)
+node tools/add-app.mjs --slug <このリポジトリ名> --name "<表示名>" \
+  --genre <fun|useful|heal|other> --desc "<1行紹介>"
+
+git add -A && git commit -m "アプリ追加: <表示名>" && git push origin main
+```
+
+- アイコンを付けるときは `assets/apps/<リポジトリ名>.png`（**320×320px・背景透過**）を置いてから実行する
+  （無ければジャンル色のタイルに名前の1文字目が出ます。後から差し替えてOK）
+- 公開前でも `--status soon` で「準備中」として先に並べられます
+- ポータル（`www.kairo-doketsu.com`）の「つくってきたもの」に**アプリのカードは足しません**。
+  ポータルからはこの一覧へ1本リンクするだけ、という整理です
+
+詳細は運用ガイド `kairo-doketsu-portal/docs/INFRA-DEPLOYMENT.md` §5-3。
+
 ---
 
 ## リポジトリの公開範囲（Public / Private）
